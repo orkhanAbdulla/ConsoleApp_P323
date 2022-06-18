@@ -10,7 +10,7 @@ namespace MiniConsole_P323.Models
     {
         public int Id { get; }
         public string FullName { get; }
-        public static int _id;
+        private static int _id;
         public Student()
         {
             Id = ++_id;

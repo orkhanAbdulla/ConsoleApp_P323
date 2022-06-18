@@ -12,13 +12,13 @@ namespace MiniConsole_P323.Models
         private static int _id;
         public string Name { get; }
         public int MaxCount { get; }
-        public Student[] students;
+        private List<Student> _students;
       public Group(string name,int maxCount)
         {
             Name = name;
             MaxCount = maxCount;
             Id = ++_id;
-            students = new Student[0];
+            _students = new List<Student>();
         }
     }
 }

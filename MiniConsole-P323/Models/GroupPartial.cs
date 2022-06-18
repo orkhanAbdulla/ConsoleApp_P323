@@ -15,20 +15,49 @@ namespace MiniConsole_P323.Models
         }
         public bool AddStudent(Student student)
         {
-            if (students.Length==MaxCount)
+            if (_students.Count==MaxCount)
             {
                 return false;
             }
-            Array.Resize(ref students, students.Length + 1);
-            students[students.Length - 1] = student;
+            _students.Add(student);
+            
             return true;
         }
         public void ShowStudents()
         {
             Helper.Print($"{Name} qrupu", ConsoleColor.Yellow);
-            foreach (var item in students)
+            foreach (var item in _students)
             {
                 Helper.Print(item.ToString(), ConsoleColor.Green);
+            }
+        }
+        public bool RemoveStudent(int id)
+        {
+            Student student = _students.Find(x=>x.Id== id);
+            if (student==null)
+            {
+                return false;
+            }
+            _students.Remove(student);
+            return true;
+        }
+        public void Search(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Helper.Print("Boshdux buraxma",ConsoleColor.Red);
+                return;
+            }
+            List<Student> students = _students.FindAll(x => x.FullName.ToLower().Trim().Contains(name.ToLower().Trim()));
+            if (students.Count==0)
+            {
+                Helper.Print("Tapilmadi", ConsoleColor.Red);
+                return;
+            }
+            Helper.Print("Tapdiqiviz telebelerin siyahisi", ConsoleColor.Green);
+            foreach (var item in students)
+            {
+                Helper.Print(item.ToString(), ConsoleColor.Red);
             }
 
         }
